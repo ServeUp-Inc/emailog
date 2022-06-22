@@ -12,6 +12,10 @@ Inside the nix shell, a locked version of the following applications can be foun
 
 ### Development Build
 ```bash
+podman machine init
+podman machine start
+```
+```bash
 pnpm dev
 
 ```
