@@ -25,6 +25,7 @@
     in {
       devShells.default = with pkgs; mkShell {
         buildInputs = [
+          curl
           git
           python310Packages.grip
           #qemu-6_2_0

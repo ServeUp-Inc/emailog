@@ -5,9 +5,20 @@ import (
   "log"
 
   "github.com/gofiber/fiber/v2"
+  "gorm.io/gorm"
 
   "github.com/ServeUp-Inc/mailog/models"
+  "github.com/ServeUp-Inc/mailog/handlers"
 )
+
+func createRoutes(app *fiber.App, db *gorm.DB) {
+  v1 := app.Group("/v1")
+
+  v1.Put("/", handlers.PutLead(db))
+
+  // Catch all
+  app.Use(handlers.SendStatusNotFound)
+}
 
 func main() {
   db, err := models.Init()
@@ -15,12 +26,6 @@ func main() {
     log.Printf("Unable to initialize database: %w", err)
     panic(err)
   }
-
-  //TODO Create lead data 
-  // validate email address
-  // Escape message string
-  newLead := models.Lead{Email: "test@gmail.com", Message: "this is a msg"}
-  models.CreateNewLead(db, &newLead)
 
   app := fiber.New(fiber.Config {
     ServerHeader: "ServeUp",
@@ -31,9 +36,7 @@ func main() {
     DisableKeepalive: true,
   })
 
-  app.Get("/", func(c *fiber.Ctx) error {
-    return c.SendString("hello")
-  })
+  createRoutes(app, db)
 
-  app.Listen(":4000")
+  log.Fatal(app.Listen(":4000"))
 }

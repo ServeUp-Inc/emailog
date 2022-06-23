@@ -3,23 +3,27 @@ package models
 import (
   "fmt"
   "log"
+  "errors"
 
   "gorm.io/gorm"
   "gorm.io/driver/mysql"
+  "github.com/go-playground/validator/v10"
+  mysqlDefs "github.com/go-sql-driver/mysql"
 )
 
 type Lead struct {
   gorm.Model
-  Email      string `gorm:"type:varchar(100);uniqueIndex;not null"`
-  Message    string `gorm:"not null"`
+  Email      string `gorm:"type:varchar(100);uniqueIndex;not null" validate:"required,email"`
+  Msg        string `gorm:"not null"`
 }
+
+const mysqlDuplicateEntryCode = 1062
 
 const dbUser string = "testuser"
 const dbPass string = "testpass"
 const dbHost string = "localhost"
 const dbPort string = "3306"
 const dbName string = "testdb"
-
 
 func Init() (*gorm.DB, error) {
   dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
@@ -43,7 +47,20 @@ func Init() (*gorm.DB, error) {
   return db, nil
 }
 
-func CreateNewLead(db *gorm.DB, lead *Lead) error {
+func CreateNewLeadIfNotExists(db *gorm.DB, lead *Lead) error {
+  validate := validator.New()
+
+  if err := validate.Struct(lead); err != nil {
+    return errors.New("Invalid email") 
+  }
+
   result := db.Create(lead)
+
+  // Check for duplicate entry
+  var mysqlErr *mysqlDefs.MySQLError
+  if errors.As(result.Error, &mysqlErr) && mysqlErr.Number == mysqlDuplicateEntryCode {
+    return nil
+  }
+
   return result.Error
 }

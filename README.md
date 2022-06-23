@@ -5,6 +5,7 @@ Development is facilicated by [Nix](https://nixos.org/). Entering the developmen
 nix develop
 ```
 Inside the nix shell, a locked version of the following applications can be found.
+- [Curl](https://curl.se/docs/manpage.html)
 - [Git](https://git-scm.com/)
 - [Grip](https://github.com/joeyespo/grip)
 - [Podman](https://podman.io/)
@@ -14,6 +15,12 @@ Inside the nix shell, a locked version of the following applications can be foun
 ```bash
 podman machine init
 podman machine start
+podman exec -it sqldb mysql -utestuser -ptestpass
+podman container stop sqldb
+podman container ls
+
+curl localhost:4000/v1/
+curl -X POST -d 'email=test1@test.com&msg=asdf' localhost:4000/v1
 ```
 ```bash
 pnpm dev
