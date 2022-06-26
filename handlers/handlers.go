@@ -4,7 +4,7 @@ import (
   "gorm.io/gorm"
   "github.com/gofiber/fiber/v2"
 
-  "github.com/ServeUp-Inc/mailog/models"
+  "github.com/ServeUp-Inc/emailog/models"
 )
 
 func SendStatusNotFound(c *fiber.Ctx) error {

@@ -19,11 +19,11 @@ type Lead struct {
 
 const mysqlDuplicateEntryCode = 1062
 
-const dbUser string = "testuser"
-const dbPass string = "testpass"
+const dbUser string = "devuser"
+const dbPass string = "devpass"
 const dbHost string = "localhost"
 const dbPort string = "3306"
-const dbName string = "testdb"
+const dbName string = "devdb"
 
 func Init() (*gorm.DB, error) {
   dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",

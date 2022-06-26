@@ -7,8 +7,8 @@ import (
   "github.com/gofiber/fiber/v2"
   "gorm.io/gorm"
 
-  "github.com/ServeUp-Inc/mailog/models"
-  "github.com/ServeUp-Inc/mailog/handlers"
+  "github.com/ServeUp-Inc/emailog/models"
+  "github.com/ServeUp-Inc/emailog/handlers"
 )
 
 func createRoutes(app *fiber.App, db *gorm.DB) {

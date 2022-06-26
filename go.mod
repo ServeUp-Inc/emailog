@@ -1,4 +1,4 @@
-module github.com/ServeUp-Inc/mailog
+module github.com/ServeUp-Inc/emailog
 
 go 1.17
 
