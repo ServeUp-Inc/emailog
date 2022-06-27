@@ -47,7 +47,7 @@
       defaultPackage = packages.main;
       defaultApp = packages.main;
 
-      devShells.default = mkShell {
+      devShells.default = mkShell rec {
         packages = [
           #qemu-6_2_0
         ];
@@ -64,6 +64,8 @@
         DB_USER = "devuser";
         DB_PASS = "devpass";
         DB_NAME = "devdb";
+        DB_PORT = DB_CONTAINER_PORT;
+        DB_HOST = "127.0.0.1";
         shellHook = ''
           start_markdown_server() {
             grip > /dev/null 2>&1 &

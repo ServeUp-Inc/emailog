@@ -8,6 +8,7 @@ import (
   "gorm.io/gorm"
 
   "github.com/ServeUp-Inc/emailog/models"
+  "github.com/ServeUp-Inc/emailog/config"
   "github.com/ServeUp-Inc/emailog/handlers"
 )
 
@@ -21,10 +22,21 @@ func createRoutes(app *fiber.App, db *gorm.DB) {
 }
 
 func Create() *fiber.App {
-  db, err := models.Init()
-  if err != nil {
-    log.Printf("Unable to initialize database: %v", err)
-    panic(err)
+  dbConfig, dbConfigErr := config.ReadDBConfigFromEnv()
+  if dbConfigErr != nil {
+    log.Printf("Unable to read database configurations: %v", dbConfigErr)
+    panic(dbConfigErr)
+  }
+
+  db, dbErr := models.Init(
+    dbConfig.User,
+    dbConfig.Pass,
+    dbConfig.Host,
+    dbConfig.Port,
+    dbConfig.Name)
+  if dbErr != nil {
+    log.Printf("Unable to initialize database: %v", dbErr)
+    panic(dbErr)
   }
 
   app := fiber.New(fiber.Config {
