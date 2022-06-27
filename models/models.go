@@ -13,8 +13,8 @@ import (
 
 type Lead struct {
   gorm.Model
-  Email      string `gorm:"type:varchar(100);uniqueIndex;not null" validate:"required,email"`
-  Msg        string `gorm:"not null"`
+  Email string `gorm:"type:varchar(100);uniqueIndex;not null" validate:"required,email"`
+  Msg string `gorm:"not null"`
 }
 
 const mysqlDuplicateEntryCode = 1062
@@ -35,12 +35,12 @@ func Init() (*gorm.DB, error) {
   }), &gorm.Config{});
 
   if dberr != nil {
-    log.Printf("Unable to connect to database: %w", dberr)
+    log.Printf("Unable to connect to database: %v", dberr)
     return nil, dberr
   }
 
   if err := db.AutoMigrate(&Lead{}); err != nil {
-    log.Printf("Unable to migrate database: %w", err)
+    log.Printf("Unable to migrate database: %v", err)
     return nil, err
   }
 

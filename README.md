@@ -44,6 +44,9 @@ Use the following command to run the application in the background and supress b
 grip > /dev/null 2>&1 &
 ```
 ### Testing
+```bash
+go test -v ./...
+```
 TODO
 
 ### Development Process
@@ -55,5 +58,5 @@ Each task to be completed is tracked through the repository's *GitHub Issues* an
 ## Usage
 
 ## FAQ
-### Why do I receive the error `... is explicitly required in go.mod, but not marked as explicit in vendor/modules.txt`?
-As outlined in this [discussion](https://discourse.nixos.org/t/buildgomodule-with-local-src-inconsistent-vendoring/8641), this error is a result of a bad vendorSha256; changing the value to lib.fakeSha256 temporarily will resolve the issue until the real hash value can be used.
+#### Why do I receive the error `...is explicitly required in go.mod, but not marked as explicit in vendor/modules.txt`?
+As outlined in this [discussion](https://discourse.nixos.org/t/buildgomodule-with-local-src-inconsistent-vendoring/8641), this error is a result of a bad vendorSha256; changing the value to `lib.fakeSha256` temporarily will resolve the issue until the real hash value can be used.

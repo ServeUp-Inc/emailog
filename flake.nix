@@ -30,7 +30,7 @@
           inherit version;
           pname = "emailog";
 
-          vendorSha256 = "sha256-zgOH99YwMOBMPp+7EjrZydvZML4bUxyWnyjxY5MTF3g=";
+          vendorSha256 = "sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";
 
           src = ./.;
 
@@ -51,14 +51,12 @@
         packages = [
           #qemu-6_2_0
         ];
-        nativeBuildInputs = [
-          curl
-          git
-          podman
-          python310Packages.grip
-        ];
         buildInputs = [
           go
+          python310Packages.grip
+          podman
+          curl
+          git
         ];
         DB_CONTAINER_NAME = "devsqldb";
         DB_CONTAINER_PORT = 3306;
