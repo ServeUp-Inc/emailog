@@ -22,7 +22,7 @@ func createRoutes(app *fiber.App, db *gorm.DB) {
 }
 
 func Create() *fiber.App {
-  dbConfig, dbConfigErr := config.ReadDBConfigFromEnv()
+  dbConfig, dbConfigErr := configs.ReadDBConfigFromEnv()
   if dbConfigErr != nil {
     log.Printf("Unable to read database configurations: %v", dbConfigErr)
     panic(dbConfigErr)

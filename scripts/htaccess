@@ -1,0 +1,9 @@
+ # This will redirect to the local server at port 4000
+Options +FollowSymLinks -Indexes
+IndexIgnore *
+DirectoryIndex
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule ^(.*) http://127.0.0.1:4000/ [P]
+</IfModule>
