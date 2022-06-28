@@ -25,13 +25,15 @@ podman container ls
 curl localhost:4000/v1/
 curl -X POST -d 'email=test1@test.com&msg=asdf' localhost:4000/v1
 ```
-```bash
-pnpm dev
-
-```
 ### Production Build
 ```bash
-pnpm run build
+nix build
+nix build #.x86_64-linux
+```
+
+```
+gpg --armor --symmetric --cipher-algo AES256 -o prodvars.asc prodvars
+gpg -o prodvars -d prodvars.asc
 ```
 
 ### Documentation
@@ -47,7 +49,6 @@ grip > /dev/null 2>&1 &
 ```bash
 go test -v ./...
 ```
-TODO
 
 ### Development Process
 Each task to be completed is tracked through the repository's *GitHub Issues* and through *Github Project*. Furthermore, the specs and designs are detailed in the docs directory.

@@ -30,9 +30,11 @@
           inherit version;
           pname = "emailog";
 
-          vendorSha256 = "sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";
+          vendorSha256 = "sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";#"sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";
 
           src = ./.;
+
+          doCheck = false;
 
           meta = {
             description = "Email logging HTTP server, written in Go";
@@ -52,12 +54,15 @@
           #qemu-6_2_0
         ];
         buildInputs = [
+          gnupg
           go
           python310Packages.grip
           podman
           curl
           git
         ];
+        SERVER_HOST = "127.0.0.1";
+        SERVER_PORT = 4000;
         DB_CONTAINER_NAME = "devsqldb";
         DB_CONTAINER_PORT = 3306;
         DB_ROOT_PASS = "devroot";

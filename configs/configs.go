@@ -27,28 +27,28 @@ type DBConfig struct {
   Port string
 }
 
-func checkEnvVar(envVar string) error {
+func checkEnvVar(envVarName string, envVar string) error {
   if len(envVar) == 0 {
-    return fmt.Errorf("Environment variable: %s not found", envVar)
+    return fmt.Errorf("Environment variable: %s not found", envVarName)
   }
   return nil
 }
 
 func ReadDBConfigFromEnv() (DBConfig, error) {
   dbName := os.Getenv(envDBName)
-  if err := checkEnvVar(dbName); err != nil { return DBConfig{}, err }
+  if err := checkEnvVar(envDBName, dbName); err != nil { return DBConfig{}, err }
 
   dbUser:= os.Getenv(envDBUser)  
-  if err := checkEnvVar(dbUser); err != nil { return DBConfig{}, err }
+  if err := checkEnvVar(envDBUser, dbUser); err != nil { return DBConfig{}, err }
 
   dbPass := os.Getenv(envDBPass)  
-  if err := checkEnvVar(dbPass); err != nil { return DBConfig{}, err }
+  if err := checkEnvVar(envDBPass, dbPass); err != nil { return DBConfig{}, err }
 
   dbHost := os.Getenv(envDBHost)  
-  if err := checkEnvVar(dbHost); err != nil { return DBConfig{}, err }
+  if err := checkEnvVar(envDBHost, dbHost); err != nil { return DBConfig{}, err }
 
   dbPort := os.Getenv(envDBPort)  
-  if err := checkEnvVar(dbPort); err != nil { return DBConfig{}, err }
+  if err := checkEnvVar(envDBPort, dbPort); err != nil { return DBConfig{}, err }
 
   return DBConfig{
     Name: dbName,
@@ -61,10 +61,10 @@ func ReadDBConfigFromEnv() (DBConfig, error) {
 
 func ReadServerConfigFromEnv() (ServerConfig, error) {
   host := os.Getenv(envServerHost)
-  if err := checkEnvVar(host); err != nil { return ServerConfig{}, err }
+  if err := checkEnvVar(envServerHost, host); err != nil { return ServerConfig{}, err }
 
   port := os.Getenv(envServerPort)  
-  if err := checkEnvVar(port); err != nil { return ServerConfig{}, err }
+  if err := checkEnvVar(envServerPort, port); err != nil { return ServerConfig{}, err }
 
   return ServerConfig{
     Host: host,

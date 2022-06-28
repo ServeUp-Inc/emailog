@@ -8,7 +8,7 @@ import (
   "gorm.io/gorm"
 
   "github.com/ServeUp-Inc/emailog/models"
-  "github.com/ServeUp-Inc/emailog/config"
+  "github.com/ServeUp-Inc/emailog/configs"
   "github.com/ServeUp-Inc/emailog/handlers"
 )
 
