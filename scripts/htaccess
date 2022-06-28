@@ -1,4 +1,4 @@
- # This will redirect to the local server at port 4000
+# This will redirect to the local server at port 4000
 Options +FollowSymLinks -Indexes
 IndexIgnore *
 DirectoryIndex

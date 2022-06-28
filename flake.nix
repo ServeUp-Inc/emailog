@@ -1,7 +1,7 @@
 {
-  description = "Email logging service for ServeUp";
+  description = "email logging service for ServeUp";
 
-  inputs = rec {
+  inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
     utils.url = "github:numtide/flake-utils";
   };
@@ -22,7 +22,6 @@
       #  ref = "refs/heads/nixos-unstable";                     
       #  rev = "d1c3fea7ecbed758168787fe4e4a3157e52bc808";                                           
       #}) {};                                                                           
-
       #qemu-6_2_0 = olderPkgs.qemu_full;
     in with pkgs; rec {
       packages = utils.lib.flattenTree {
@@ -30,10 +29,12 @@
           inherit version;
           pname = "emailog";
 
-          vendorSha256 = "sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";#"sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";
+          vendorSha256 = "sha256-OVu4XvjUrqNR6yVsp56xEAXXSZ/UAVYCCVwSG+lGTSw=";
 
           src = ./.;
 
+          # Testing fails during nix build because env vars are not
+          # available
           doCheck = false;
 
           meta = {
@@ -50,9 +51,6 @@
       defaultApp = packages.main;
 
       devShells.default = mkShell rec {
-        packages = [
-          #qemu-6_2_0
-        ];
         buildInputs = [
           gnupg
           go
